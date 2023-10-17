@@ -10003,6 +10003,7 @@ class ComputeManager(manager.Manager):
             LOG.exception("Error updating resources for node %(node)s.",
                           {'node': nodename})
 
+    # Hai checking (update resource lien tuc)
     @periodic_task.periodic_task(spacing=CONF.update_resources_interval)
     def update_available_resource(self, context, startup=False):
         """See driver.get_available_resource()

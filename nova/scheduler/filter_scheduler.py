@@ -151,6 +151,8 @@ class FilterScheduler(driver.Scheduler):
         hosts = self._get_all_host_states(elevated, spec_obj,
             provider_summaries)
 
+        # Hai mod
+        LOG.debug("Hai mod. Jump into _schedule func. Host_states: %s",hosts)
         # NOTE(sbauza): The RequestSpec.num_instances field contains the number
         # of instances created when the RequestSpec was used to first boot some
         # instances. This is incorrect when doing a move or resize operation,

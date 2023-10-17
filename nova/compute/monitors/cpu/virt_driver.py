@@ -39,6 +39,7 @@ class Monitor(base.CPUMonitorBase):
         self._data = {}
         self._cpu_stats = {}
 
+    # Hai checking (mo rong metric cho host memory, may)
     def populate_metrics(self, metric_list):
         self._update_data()
         for name in self.get_metric_names():

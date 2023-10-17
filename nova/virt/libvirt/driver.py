@@ -8557,6 +8557,10 @@ class LibvirtDriver(driver.ComputeDriver):
         else:
             data['numa_topology'] = None
 
+        # Hai mod
+        data['live_instances_mem'] = jsonutils.dumps(self._host.get_domain_memory_usage()) 
+        LOG.debug("Hai mod. live_instances_mem from libvirt driver: %s", data['live_instances_mem'])
+
         return data
 
     def check_instance_shared_storage_local(self, context, instance):

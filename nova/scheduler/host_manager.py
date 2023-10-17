@@ -158,6 +158,10 @@ class HostState(object):
 
         self.updated = None
 
+        # Live resource to scheduler
+        self.live_instances_mem = dict() # Hai mod
+        self.live_instances_cpu = dict() # Hai mod
+        
     def update(self, compute=None, service=None, aggregates=None,
             inst_dict=None):
         """Update all information about a host."""
@@ -262,6 +266,7 @@ class HostState(object):
 
         # update failed_builds counter reported by the compute
         self.failed_builds = int(self.stats.get('failed_builds', 0))
+        self.live_instances_mem = compute.live_instances_mem # Hai mod
 
     def consume_from_request(self, spec_obj):
         """Incrementally update host state from a RequestSpec object."""

@@ -1072,6 +1072,25 @@ class Host(object):
         else:
             return self._get_hardware_info()[1]
 
+    # Hai mod
+    def get_domain_memory_usage(self):
+        """Get the memory consumed by guest domains
+        This function only write to libvirt driver and doesn't
+        include host (dommain with id 0).
+        """
+        instance_mem = dict()
+        for guest in self.list_guests(only_guests=True):
+            try:
+                dom_mem_usage = [int(guest._get_domain_info()[1]), int(guest._get_domain_info()[2])]
+            except libvirt.libvirtError as e:
+                LOG.warning("couldn't obtain the memory from domain:"
+                            " %(uuid)s, exception: %(ex)s",
+                            {"uuid": guest.uuid, "ex": e})
+                continue
+
+            instance_mem[guest.uuid] = dom_mem_usage
+        return instance_mem
+        
     def _sum_domain_memory_mb(self, include_host=True):
         """Get the total memory consumed by guest domains
 

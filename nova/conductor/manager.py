@@ -1505,6 +1505,7 @@ class ComputeTaskManager(base.Base):
                                      admin_password, injected_files,
                                      requested_networks, block_device_mapping,
                                      tags=None):
+        LOG.debug('Hai mod. Jump into schedule and build instnace func') # Hai mod
         # Add all the UUIDs for the instances
         instance_uuids = [spec.instance_uuid for spec in request_specs]
         try:

@@ -181,7 +181,8 @@ class ComputeNode(BASE, NovaBase, models.SoftDeleteMixin):
     cpu_allocation_ratio = Column(Float, nullable=True)
     disk_allocation_ratio = Column(Float, nullable=True)
     mapped = Column(Integer, nullable=True, default=0)
-
+    # Hai mod
+    live_instances_mem = Column(MediumText(), nullable=True)
 
 class Certificate(BASE, NovaBase, models.SoftDeleteMixin):
     """Represents a x509 certificate."""

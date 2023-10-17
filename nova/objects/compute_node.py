@@ -96,6 +96,7 @@ class ComputeNode(base.NovaPersistentObject, base.NovaObject):
         'ram_allocation_ratio': fields.FloatField(),
         'disk_allocation_ratio': fields.FloatField(),
         'mapped': fields.IntegerField(),
+        'live_instances_mem': fields.StringField(nullable=True), # Hai mod
         }
 
     def obj_make_compatible(self, primitive, target_version):
@@ -179,6 +180,9 @@ class ComputeNode(base.NovaPersistentObject, base.NovaObject):
             'host',
             'pci_device_pools',
             ])
+
+        # # Hai mod
+        # live_cases = set(['live_instances_mem'])
         fields = set(compute.fields) - special_cases
         online_updates = {}
         for key in fields:
@@ -223,6 +227,10 @@ class ComputeNode(base.NovaPersistentObject, base.NovaObject):
         if online_updates:
             db.compute_node_update(context, compute.id, online_updates)
 
+        # # Hai mod
+        # live_instances_mem = db_compute['live_instances_mem']
+        # if live_instances_mem:
+        #     compute.live_instances_mem = jsonutils.loads(live_instances_mem)
         stats = db_compute['stats']
         if stats:
             compute.stats = jsonutils.loads(stats)
@@ -372,6 +380,10 @@ class ComputeNode(base.NovaPersistentObject, base.NovaObject):
                 "numa_topology", "hypervisor_type",
                 "hypervisor_version", "hypervisor_hostname",
                 "disk_available_least", "host_ip", "uuid"]
+
+        # Hai mod
+        new_keys = ["live_instances_mem"]
+        keys = keys + new_keys
         for key in keys:
             if key in resources:
                 # The uuid field is read-only so it should only be set when
